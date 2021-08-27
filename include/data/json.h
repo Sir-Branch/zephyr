@@ -37,8 +37,8 @@ enum json_tokens {
 	JSON_TOK_NONE = '_',
 	JSON_TOK_OBJECT_START = '{',
 	JSON_TOK_OBJECT_END = '}',
-	JSON_TOK_LIST_START = '[',
-	JSON_TOK_LIST_END = ']',
+	JSON_TOK_ARRAY_START = '[',
+	JSON_TOK_ARRAY_END = ']',
 	JSON_TOK_STRING = '"',
 	JSON_TOK_COLON = ':',
 	JSON_TOK_COMMA = ',',
@@ -65,7 +65,7 @@ struct json_obj_descr {
 
 	/* Valid values here (enum json_tokens): JSON_TOK_STRING,
 	 * JSON_TOK_NUMBER, JSON_TOK_TRUE, JSON_TOK_FALSE,
-	 * JSON_TOK_OBJECT_START, JSON_TOK_LIST_START.  (All others
+	 * JSON_TOK_OBJECT_START, JSON_TOK_ARRAY_START.  (All others
 	 * ignored.) Maximum value is '}' (125), so this has to be 7 bits
 	 * long.
 	 */
@@ -249,7 +249,7 @@ typedef int (*json_append_bytes_t)(const char *bytes, size_t len,
 		.field_name = (#field_name_), \
 		.align_shift = Z_ALIGN_SHIFT(struct_), \
 		.field_name_len = sizeof(#field_name_) - 1, \
-		.type = JSON_TOK_LIST_START, \
+		.type = JSON_TOK_ARRAY_START, \
 		.offset = offsetof(struct_, field_name_), \
 		{ \
 			.array = { \
@@ -300,7 +300,7 @@ typedef int (*json_append_bytes_t)(const char *bytes, size_t len,
 		.field_name = (#field_name_), \
 		.align_shift = Z_ALIGN_SHIFT(struct_), \
 		.field_name_len = sizeof(#field_name_) - 1, \
-		.type = JSON_TOK_LIST_START, \
+		.type = JSON_TOK_ARRAY_START, \
 		.offset = offsetof(struct_, field_name_), \
 		{ \
 			.array = { \
@@ -361,12 +361,12 @@ typedef int (*json_append_bytes_t)(const char *bytes, size_t len,
 		.field_name = (#field_name_), \
 		.align_shift = Z_ALIGN_SHIFT(struct_), \
 		.field_name_len = sizeof(#field_name_) - 1, \
-		.type = JSON_TOK_LIST_START, \
+		.type = JSON_TOK_ARRAY_START, \
 		.offset = offsetof(struct_, field_name_), \
 		{ \
 			.array = { \
 				.element_descr = JSON_ELEMENT_DESCR( \
-					struct_, len_field_, JSON_TOK_LIST_START, \
+					struct_, len_field_, JSON_TOK_ARRAY_START, \
 					JSON_DESCR_ARRAY( \
 						elem_descr_, \
 						1 + ZERO_OR_COMPILE_ERROR(elem_descr_len_ == 1))), \
@@ -451,7 +451,7 @@ typedef int (*json_append_bytes_t)(const char *bytes, size_t len,
 		.field_name = (json_field_name_), \
 		.align_shift = Z_ALIGN_SHIFT(struct_), \
 		.field_name_len = sizeof(json_field_name_) - 1, \
-		.type = JSON_TOK_LIST_START, \
+		.type = JSON_TOK_ARRAY_START, \
 		.offset = offsetof(struct_, struct_field_name_), \
 		{ \
 			.array = { \
@@ -510,7 +510,7 @@ typedef int (*json_append_bytes_t)(const char *bytes, size_t len,
 		.field_name = json_field_name_, \
 		.align_shift = Z_ALIGN_SHIFT(struct_), \
 		.field_name_len = sizeof(json_field_name_) - 1, \
-		.type = JSON_TOK_LIST_START, \
+		.type = JSON_TOK_ARRAY_START, \
 		.offset = offsetof(struct_, struct_field_name_), \
 		{ \
 			.array = { \

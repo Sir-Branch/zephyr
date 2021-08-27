@@ -307,7 +307,7 @@ static int element_token(enum json_tokens token)
 {
 	switch (token) {
 	case JSON_TOK_OBJECT_START:
-	case JSON_TOK_LIST_START:
+	case JSON_TOK_ARRAY_START:
 	case JSON_TOK_STRING:
 	case JSON_TOK_NUMBER:
 	case JSON_TOK_TRUE:
@@ -376,7 +376,7 @@ static int arr_next(struct json_obj *json, struct token *value)
 		return -EINVAL;
 	}
 
-	if (value->type == JSON_TOK_LIST_END) {
+	if (value->type == JSON_TOK_ARRAY_END) {
 		return 0;
 	}
 
@@ -446,7 +446,7 @@ static int decode_value(struct json_obj *obj,
 		return obj_parse(obj, descr->object.sub_descr,
 				 descr->object.sub_descr_len,
 				 field);
-	case JSON_TOK_LIST_START:
+	case JSON_TOK_ARRAY_START:
 		return arr_parse(obj, descr->array.element_descr,
 				 descr->array.n_elements, field, val);
 	case JSON_TOK_FALSE:
@@ -485,7 +485,7 @@ static ptrdiff_t get_elem_size(const struct json_obj_descr *descr)
 	case JSON_TOK_TRUE:
 	case JSON_TOK_FALSE:
 		return sizeof(bool);
-	case JSON_TOK_LIST_START:
+	case JSON_TOK_ARRAY_START:
 		return descr->array.n_elements * get_elem_size(descr->array.element_descr);
 	case JSON_TOK_OBJECT_START: {
 		ptrdiff_t total = 0;
@@ -524,7 +524,7 @@ static int arr_parse(struct json_obj *obj,
 	}
 
 	while (!arr_next(obj, &value)) {
-		if (value.type == JSON_TOK_LIST_END) {
+		if (value.type == JSON_TOK_ARRAY_END) {
 			return 0;
 		}
 
@@ -817,7 +817,7 @@ static int encode(const struct json_obj_descr *descr, const void *val,
 		return bool_encode(ptr, append_bytes, data);
 	case JSON_TOK_STRING:
 		return str_encode(ptr, append_bytes, data);
-	case JSON_TOK_LIST_START:
+	case JSON_TOK_ARRAY_START:
 		return arr_encode(descr->array.element_descr, ptr,
 				  val, append_bytes, data);
 	case JSON_TOK_OBJECT_START:
