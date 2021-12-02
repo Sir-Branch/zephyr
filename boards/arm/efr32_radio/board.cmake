@@ -2,7 +2,9 @@
 
 board_runner_args(openocd)
 
-if(CONFIG_BOARD_EFR32_RADIO_BRD4104A)
+if(CONFIG_BOARD_EFR32_RADIO_BRD4103A)
+board_runner_args(jlink "--device=EFR32BG12PxxxF1024")
+elseif(CONFIG_BOARD_EFR32_RADIO_BRD4104A)
 board_runner_args(jlink "--device=EFR32BG13PxxxF512")
 elseif(CONFIG_BOARD_EFR32_RADIO_BRD4250B)
 board_runner_args(jlink "--device=EFR32FG1PxxxF256")

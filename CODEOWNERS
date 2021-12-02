@@ -405,6 +405,7 @@
 /dts/arm/silabs/efm32_pg_1b.dtsi          @rdmeneze
 /dts/arm/silabs/efm32gg11b*               @oanerer
 /dts/arm/silabs/efm32_jg_pg*              @chrta
+/dts/arm/silabs/efr32bg12p*               @sir-branch
 /dts/arm/silabs/efr32bg13p*               @mnkp
 /dts/arm/silabs/efr32xg13p*               @mnkp
 /dts/arm/silabs/efm32jg12b*               @chrta

@@ -5,6 +5,12 @@
 # Copyright (c) 2020 TriaGnoSys GmbH
 # SPDX-License-Identifier: Apache-2.0
 
+config BOARD_EFR32_RADIO_BRD4103A
+	bool "Silicon Labs BRD4103A (Blue Gecko Radio Board)"
+	depends on SOC_SERIES_EFR32BG12P
+	select BOARD_EFR32_RADIO
+	select SOC_PART_NUMBER_EFR32BG12P332F1024GL125
+
 config BOARD_EFR32_RADIO_BRD4104A
 	bool "Silicon Labs BRD4104A (Blue Gecko Radio Board)"
 	depends on SOC_SERIES_EFR32BG13P
